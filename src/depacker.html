@@ -1,0 +1,1 @@
+<canvas id=c><img onload="for(w=c.width=#{width},c.height=#{height},a=c.getContext('2d'),a.drawImage(this,p=0,0),e=[],d=a.getImageData(0,0,w,#{height}).data;p<d.length;p+=4)e.push(d[p]);js=e.slice(#{split}).filter(s=>s).map(s=>String.fromCharCode(s)).join('');f=new Function(js);f(e.slice(0,#{split}))" src=#>

@@ -1,0 +1,16 @@
+[package]
+name = "wasmpng"
+version = "0.1.0"
+edition = "2018"
+license = "MIT"
+authors = ["Roy Jacobs <roy.jacobs@gmail.com>"]
+repository = "https://github.com/datatrash/wasm-png"
+readme = "README.md"
+keywords = ["wasm", "png", "compression", "pnginator", "demoscene"]
+homepage = "https://github.com/datatrash/wasm-png"
+
+[dependencies]
+anyhow = "1"
+argh = "0.1"
+fs-err = "2"
+png = "0.17"
