@@ -8,6 +8,7 @@ repository = "https://github.com/datatrash/wasm-png"
 readme = "README.md"
 keywords = ["wasm", "png", "compression", "pnginator", "demoscene"]
 homepage = "https://github.com/datatrash/wasm-png"
+description = "Combines a Javascript and WASM file into a single executable polygot PNG+HTML file"
 
 [dependencies]
 anyhow = "1"
