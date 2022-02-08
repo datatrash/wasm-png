@@ -1,6 +1,7 @@
 use std::path::Path;
 use fs_err as fs;
-use std::io::BufWriter;
+use std::io::{BufWriter, Write};
+use lodepng::{ChunkPosition, ColorType, CompressSettings, FilterStrategy};
 
 #[derive(argh::FromArgs)]
 /// Compress wasm+js files into an executable png
@@ -17,8 +18,6 @@ struct Args {
     #[argh(option, default = "4096")]
     max_width: u32
 }
-
-pub const TRSH: png::chunk::ChunkType = png::chunk::ChunkType([b't', b'r', b's', b'h']);
 
 fn main() -> anyhow::Result<()> {
     let args: Args = argh::from_env();
@@ -39,17 +38,24 @@ fn main() -> anyhow::Result<()> {
 
     let path = Path::new(r"image.png.html");
     let file = fs::File::create(path)?;
-    let w = BufWriter::new(file);
-    let mut encoder = png::Encoder::new(w, width, height);
-    encoder.set_compression(png::Compression::Best);
-    encoder.set_color(png::ColorType::Grayscale);
-    encoder.set_depth(png::BitDepth::Eight);
-    encoder.set_filter(png::FilterType::NoFilter);
+    let mut w = BufWriter::new(file);
 
-    let mut writer = encoder.write_header()?;
-    writer.write_chunk(TRSH, depacker.as_bytes())?;
-    writer.write_image_data(&data)?;
+    let mut encoder = lodepng::Encoder::new();
+    encoder.set_filter_strategy(FilterStrategy::BRUTE_FORCE, false);
+    encoder.set_custom_zlib(Some(compress), 0 as *const _);
+    let raw_info = encoder.info_raw_mut();
+    raw_info.set_colortype(ColorType::GREY);
+    raw_info.set_bitdepth(8);
+    let info = encoder.info_png_mut();
+    info.create_chunk(ChunkPosition::IHDR, &[b't', b'r', b's', b'h'], depacker.as_bytes())?;
+    let bytes = encoder.encode(&data, width as usize, height as usize)?;
+    w.write_all(&bytes)?;
 
+    Ok(())
+}
+
+fn compress(input: &[u8], output: &mut dyn std::io::Write, _context: &CompressSettings) -> Result<(), lodepng::Error> {
+    zopfli::compress(&zopfli::Options::default(), &zopfli::Format::Zlib, input, output)?;
     Ok(())
 }
 

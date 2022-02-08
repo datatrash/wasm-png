@@ -1,6 +1,6 @@
 [package]
 name = "wasmpng"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2018"
 license = "MIT"
 authors = ["Roy Jacobs <roy.jacobs@gmail.com>"]
@@ -14,4 +14,5 @@ description = "Combines a Javascript and WASM file into a single executable poly
 anyhow = "1"
 argh = "0.1"
 fs-err = "2"
-png = "0.17"
+lodepng = "3"
+zopfli = "0.5"
