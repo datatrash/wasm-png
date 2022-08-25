@@ -1,6 +1,6 @@
 [package]
 name = "wasmpng"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2018"
 license = "MIT"
 authors = ["Roy Jacobs <roy.jacobs@gmail.com>"]
@@ -15,4 +15,4 @@ anyhow = "1"
 argh = "0.1"
 fs-err = "2"
 lodepng = "3"
-zopfli = "0.5"
+zopfli = "0.7"
