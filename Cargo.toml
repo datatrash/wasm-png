@@ -1,6 +1,6 @@
 [package]
 name = "wasmpng"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2018"
 license = "MIT"
 authors = ["Roy Jacobs <roy.jacobs@gmail.com>"]

@@ -55,7 +55,7 @@ fn main() -> anyhow::Result<()> {
 }
 
 fn compress(input: &[u8], output: &mut dyn Write, _context: &CompressSettings) -> Result<(), lodepng::Error> {
-    zopfli::compress(&zopfli::Options::default(), &zopfli::Format::Deflate, input, output)?;
+    zopfli::compress(&zopfli::Options::default(), &zopfli::Format::Zlib, input, output)?;
     Ok(())
 }
 
