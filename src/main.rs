@@ -1,6 +1,7 @@
 use std::path::Path;
 use fs_err as fs;
 use std::io::{BufWriter, Write};
+use libwebp_sys::WebPEncodeLosslessRGBA;
 use lodepng::{ChunkPosition, ColorType, CompressSettings, FilterStrategy};
 
 #[derive(argh::FromArgs)]
@@ -30,6 +31,14 @@ fn main() -> anyhow::Result<()> {
     data.append(&mut js_data);
 
     let (width, height, data) = split_data(data, args.max_width);
+
+    unsafe {
+        let mut out_buf = std::ptr::null_mut();
+        let stride = width as i32;
+        let len = WebPEncodeLosslessRGBA(data.as_ptr(), width as i32 >> 2, height as i32, stride, &mut out_buf);
+        //let _ = std::slice::from_raw_parts(out_buf, len as usize).into();
+        println!("WEBP: {:?}", len);
+    }
 
     let depacker = include_str!("depacker.html");
     let depacker = depacker.replace("#{width}", &width.to_string());

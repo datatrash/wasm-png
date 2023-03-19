@@ -14,5 +14,6 @@ description = "Combines a Javascript and WASM file into a single executable poly
 anyhow = "1"
 argh = "0.1"
 fs-err = "2"
+libwebp-sys = "0.8"
 lodepng = "3"
 zopfli = "0.7"
