@@ -1,3 +1,5 @@
+[mashi](https://github.com/datatrash/mashi) now supports this natively, so this tool isn't needed anymore.
+
 # WASM-PNG
 
 Combines a Javascript and WASM file into a single executable polygot PNG+HTML file.
